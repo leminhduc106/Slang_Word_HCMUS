@@ -15,7 +15,7 @@ public class Main {
     public static void main(String[] args) {
         SlangWordList list = new SlangWordList();
         FileProccess.read("slang.txt", list);
-        ArrayList<String> values = list.searchBySlangWord(">_>");
+        ArrayList<String> values = list.searchBySlangWord(">.>");
         for (String value : values){
             System.out.print(value + "|");
         }
