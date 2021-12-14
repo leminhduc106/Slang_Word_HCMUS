@@ -38,8 +38,8 @@ public class FileProccess {
         }
     }
     
-    public static Object[][] readHistory(String path){
-        ArrayList<Object[]> data = new ArrayList<>();
+    public static ArrayList<String> readHistory(String path){
+        ArrayList<String> data = new ArrayList<>();
         File file = new File(path);
         try {
              Scanner scan = new Scanner(file);
@@ -47,16 +47,16 @@ public class FileProccess {
                 String line = scan.nextLine();
                 try {
                     String[] lineSplit = line.split("`");
-                    Object[] lineData = {lineSplit[0], lineSplit[1]};
-                    data.add(lineData);
+                    //Object[] lineData = {lineSplit[0], lineSplit[1]};
+                    data.add(lineSplit[0]);
                 } catch (Exception e) {
                 }
             }
            
         } catch (Exception e) {
         }
-        Object[][] result = new Object[data.size()][];
-        return data.toArray(result);
+        //Object[][] result = new Object[data.size()][];
+        return data;
     }
     
     public static void write(String path, SlangWordList list){
@@ -92,13 +92,13 @@ public class FileProccess {
         }
     }
     
-    public static void writeHistory(String path, String str1, String str2){
+    public static void writeHistory(String path, String key, String values){
         BufferedWriter bw = null;
         FileWriter fw = null;
         try {
                 fw = new FileWriter(path, true);
                 bw = new BufferedWriter(fw);
-                String line = str1 + "`" + str2;
+                String line = key + "`" + values;
                 bw.write(line);
                 bw.newLine();
                 bw.close();

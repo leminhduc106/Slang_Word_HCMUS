@@ -86,6 +86,24 @@ public class SlangWordList {
         return null;
     }
     
+    public ArrayList<String> getKeyList() {
+        
+        Set<String> dat = list.keySet();
+        ArrayList<String> ret = new ArrayList<String>(dat);
+        Collections.sort(ret);
+        return ret;
+    }
+
+    public ArrayList<String> getMeanList() {
+        ArrayList<String>ret=new ArrayList<>();
+        for (ArrayList<String> mean:list.values()) {
+            String temp;
+            temp=mean.toString();
+            ret.add(temp);
+        }
+        return ret;
+    }
+    
     public void addNewSlang(String key,String meaning,char mode) {
         ArrayList<String> means=new ArrayList<String>();
         String[] mean_arr=meaning.split(",");
@@ -119,5 +137,24 @@ public class SlangWordList {
 
     public Boolean isExisted(String key) {
         return list.containsKey(key);
+    }
+    
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        
+        Set<String> ketSet = list.keySet();
+        for(String i : ketSet){
+            ArrayList<String> values = new ArrayList<>();
+            values = list.get(i);
+            sb.append(i + "`");
+            System.out.print(i + "`");
+            for (String value : values){
+                sb.append(value + "|");
+                System.out.print(value + "|");
+            }
+            System.out.println("");
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 }
