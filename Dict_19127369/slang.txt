@@ -1486,6 +1486,7 @@ ANFSCD`And Now For Something Completely Different
 ARGH`frustration|anger
 FR`For Real
 DLV`Demonstration of Lower Value
+FU`Fuck up
 FW`Forward
 G8`Great
 UNI`University

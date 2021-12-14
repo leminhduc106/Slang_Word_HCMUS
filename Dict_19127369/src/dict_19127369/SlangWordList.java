@@ -131,8 +131,17 @@ public class SlangWordList {
             list.remove(key);
     }
 
-    public void editSlang(String key,ArrayList<String>means) {
-        list.replace(key,means);
+    public int editSlang(String key, String meaning) {
+        try {
+            ArrayList<String> means = new ArrayList<String>();
+            String[] mean_arr=meaning.split(",");
+            ArrayList<String> new_mean=new ArrayList<String>(Arrays.asList(mean_arr));
+            means.addAll(new_mean);
+            list.replace(key, means);
+            return 1;
+        }catch(Exception e) {
+            return -1;
+        }
     }
 
     public Boolean isExisted(String key) {
@@ -146,13 +155,10 @@ public class SlangWordList {
         for(String i : ketSet){
             ArrayList<String> values = new ArrayList<>();
             values = list.get(i);
-            sb.append(i + "`");
-            System.out.print(i + "`");
+            sb.append(i + ": ");
             for (String value : values){
                 sb.append(value + "|");
-                System.out.print(value + "|");
             }
-            System.out.println("");
             sb.append("\n");
         }
         return sb.toString();
