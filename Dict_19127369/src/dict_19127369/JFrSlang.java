@@ -60,6 +60,9 @@ public class JFrSlang extends javax.swing.JFrame {
         txtAddMean = new javax.swing.JTextArea();
         btnAdd = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
+        btnHistory = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        txtHistory = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -127,6 +130,18 @@ public class JFrSlang extends javax.swing.JFrame {
 
         btnReset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Refresh.png"))); // NOI18N
         btnReset.setText("RESET");
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetActionPerformed(evt);
+            }
+        });
+
+        btnHistory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Tick.png"))); // NOI18N
+        btnHistory.setText("REFRESH HISTORY");
+
+        txtHistory.setColumns(20);
+        txtHistory.setRows(5);
+        jScrollPane4.setViewportView(txtHistory);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -164,6 +179,10 @@ public class JFrSlang extends javax.swing.JFrame {
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnReset)))
+                .addGap(78, 78, 78)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnHistory)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -174,7 +193,8 @@ public class JFrSlang extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(txtSlang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnFindSlang)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(btnHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -195,14 +215,15 @@ public class JFrSlang extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnReset)))))
+                            .addComponent(btnReset)))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1051, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1357, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -226,8 +247,24 @@ public class JFrSlang extends javax.swing.JFrame {
         }
         else {
             ArrayList<String> values = list.searchBySlangWord(txtSlang.getText());
-            txtShowMean.setText("MEANING: " + values.toString());
-            txtShowMean.setEditable(false);
+            if(values == null) {
+                txtShowMean.setText("MEANING: Not found!");
+                txtShowMean.setEditable(false);
+            }
+            else {
+                String def = "";
+                for (int i = 0; i< values.size(); i++){
+                    if(i != values.size() - 1){
+                        def = def + values.get(i) + " | ";
+                    }
+                    else if (i == values.size() - 1){
+                        def = def + values.get(i);
+                    }
+                }
+                FileProccess.writeHistory("historySlang.txt", txtSlang.getText(), def);
+                txtShowMean.setText("MEANING: " + def);
+                txtShowMean.setEditable(false);
+            }
         }
     }//GEN-LAST:event_btnFindSlangActionPerformed
 
@@ -278,6 +315,24 @@ public class JFrSlang extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        Object[] options = {"Confirm", "Cancel"};
+        String mess = "(?) Are you sure you want to reset the dictionary?";
+        
+        int n = JOptionPane.showOptionDialog(this, mess, "Reset SlangWord", JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null, options, null);
+        
+        if(n == JOptionPane.YES_OPTION){
+            try {
+                FileProccess.read("original_slang.txt", list);
+                FileProccess.write("slang.txt", list);
+                JOptionPane.showMessageDialog(this, "(i) Reset successful.");
+            } catch(Exception e) {
+                JOptionPane.showMessageDialog(this, "(!} Error: " + e.toString());
+            }
+        }
+    }//GEN-LAST:event_btnResetActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -317,6 +372,7 @@ public class JFrSlang extends javax.swing.JFrame {
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnFindDef;
     private javax.swing.JButton btnFindSlang;
+    private javax.swing.JButton btnHistory;
     private javax.swing.JButton btnReset;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -329,9 +385,11 @@ public class JFrSlang extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea txtAddMean;
     private javax.swing.JTextField txtAddSlang;
     private javax.swing.JTextField txtDefinition;
+    private javax.swing.JTextArea txtHistory;
     private javax.swing.JTextArea txtShowMean;
     private javax.swing.JTextArea txtShowSlang;
     private javax.swing.JTextField txtSlang;

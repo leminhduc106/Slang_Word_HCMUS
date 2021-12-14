@@ -63,7 +63,12 @@ public class SlangWordList {
      * @return set of meaning of slangword
      */
     public ArrayList<String> searchBySlangWord(String slangword){
-        return(list.get(slangword));
+        try {
+            ArrayList<String> result = list.get(slangword);
+            return result;
+        }catch(Exception e) {
+            return null;
+        } 
     }
     
     /**
