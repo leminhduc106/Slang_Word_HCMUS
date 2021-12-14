@@ -46,7 +46,12 @@ public class JFrSlang extends javax.swing.JFrame {
         txtSlang = new javax.swing.JTextField();
         btnFindSlang = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        txtMean = new javax.swing.JTextArea();
+        txtShowMean = new javax.swing.JTextArea();
+        jLabel3 = new javax.swing.JLabel();
+        txtDefinition = new javax.swing.JTextField();
+        btnFindDef = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtShowSlang = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,7 +60,8 @@ public class JFrSlang extends javax.swing.JFrame {
         jLabel8.setText("SLANG WORD DICTIONARY");
         jPanel2.add(jLabel8);
 
-        jLabel2.setText("Slang:");
+        jLabel2.setForeground(new java.awt.Color(153, 0, 0));
+        jLabel2.setText("Search by slang word:");
 
         txtSlang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,6 +69,7 @@ public class JFrSlang extends javax.swing.JFrame {
             }
         });
 
+        btnFindSlang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Search.png"))); // NOI18N
         btnFindSlang.setText("FIND");
         btnFindSlang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,26 +77,48 @@ public class JFrSlang extends javax.swing.JFrame {
             }
         });
 
-        txtMean.setColumns(20);
-        txtMean.setRows(5);
-        jScrollPane1.setViewportView(txtMean);
+        txtShowMean.setColumns(20);
+        txtShowMean.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtShowMean.setRows(5);
+        jScrollPane1.setViewportView(txtShowMean);
+
+        jLabel3.setForeground(new java.awt.Color(153, 0, 0));
+        jLabel3.setText("Search by definition:");
+
+        btnFindDef.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Search.png"))); // NOI18N
+        btnFindDef.setText("FIND");
+        btnFindDef.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFindDefActionPerformed(evt);
+            }
+        });
+
+        txtShowSlang.setColumns(20);
+        txtShowSlang.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtShowSlang.setRows(5);
+        jScrollPane2.setViewportView(txtShowSlang);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtDefinition, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnFindDef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtSlang, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnFindSlang, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(113, 113, 113)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnFindSlang))
+                    .addComponent(jScrollPane2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -100,9 +129,16 @@ public class JFrSlang extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(txtSlang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnFindSlang))
-                .addGap(57, 57, 57)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(158, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtDefinition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFindDef))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -130,17 +166,29 @@ public class JFrSlang extends javax.swing.JFrame {
     private void btnFindSlangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindSlangActionPerformed
         // TODO add your handling code here:
         if(txtSlang.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "(!) Please enter a slang word to find.");
+            JOptionPane.showMessageDialog(this, "(!) Please enter a slang word to search.");
         }
         else {
             ArrayList<String> values = list.searchBySlangWord(txtSlang.getText());
-            txtMean.setText("MEAN: " + values.toString());
-            txtMean.setEditable(false);
-            for (String value : values){
-                System.out.println(value + "|");
-            }
+            txtShowMean.setText("MEANING: " + values.toString());
+            txtShowMean.setEditable(false);
         }
     }//GEN-LAST:event_btnFindSlangActionPerformed
+
+    private void btnFindDefActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindDefActionPerformed
+        // TODO add your handling code here:
+        if(txtDefinition.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "(!) Please enter a definition to search.");
+        }
+        else {
+            if(list.searchByDefinition(txtDefinition.getText()) == null) {
+                txtShowSlang.setText("NOT FOUND!");
+            } else {
+                txtShowSlang.setText("SLANG WORD: " + list.searchByDefinition(txtDefinition.getText()));
+                txtShowSlang.setEditable(false);
+            }
+        }
+    }//GEN-LAST:event_btnFindDefActionPerformed
 
     /**
      * @param args the command line arguments
@@ -178,13 +226,18 @@ public class JFrSlang extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFindDef;
     private javax.swing.JButton btnFindSlang;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea txtMean;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField txtDefinition;
+    private javax.swing.JTextArea txtShowMean;
+    private javax.swing.JTextArea txtShowSlang;
     private javax.swing.JTextField txtSlang;
     // End of variables declaration//GEN-END:variables
 }
