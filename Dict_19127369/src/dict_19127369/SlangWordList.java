@@ -81,4 +81,38 @@ public class SlangWordList {
         return null;
     }
     
+    public void addNewSlang(String key,String meaning,char mode) {
+        ArrayList<String> means=new ArrayList<String>();
+        String[] mean_arr=meaning.split(",");
+        ArrayList<String> new_mean=new ArrayList<String>(Arrays.asList(mean_arr));
+        means.addAll(new_mean);
+        if(list.containsKey(key)==false) {
+            list.put(key,means);
+        }
+        else {
+            if (mode=='w') {
+                ArrayList<String> mean_tmp=new ArrayList<String>();
+                mean_tmp.addAll(new_mean);
+                list.replace(key,mean_tmp);
+            }
+            else if(mode=='n') {
+                means=list.get(key);
+                means.addAll(new_mean);
+                list.put(key,means);
+            }
+        }
+    }
+    
+    public void deleteSlang(String key) {
+        if(list.containsKey(key)==true) 
+            list.remove(key);
+    }
+
+    public void editSlang(String key,ArrayList<String>means) {
+        list.replace(key,means);
+    }
+
+    public Boolean isExisted(String key) {
+        return list.containsKey(key);
+    }
 }
