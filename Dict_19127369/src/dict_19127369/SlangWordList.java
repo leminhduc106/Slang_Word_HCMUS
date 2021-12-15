@@ -86,6 +86,10 @@ public class SlangWordList {
         return null;
     }
     
+    /**
+     * Get all the key of list
+     * @return ArrayList<String> of key
+     */
     public ArrayList<String> getKeyList() {
         
         Set<String> dat = list.keySet();
@@ -94,6 +98,10 @@ public class SlangWordList {
         return ret;
     }
 
+    /**
+     * Get all the meaning of list
+     * @return ArrayList<String> of meaning
+     */
     public ArrayList<String> getMeanList() {
         ArrayList<String>ret=new ArrayList<>();
         for (ArrayList<String> mean:list.values()) {
@@ -104,6 +112,12 @@ public class SlangWordList {
         return ret;
     }
     
+    /**
+     * Add new slang word
+     * @param key (slang word)
+     * @param meaning (the meaning of that slang word)
+     * @param mode (overwrite, add new, duplicate)
+     */
     public void addNewSlang(String key,String meaning,char mode) {
         ArrayList<String> means=new ArrayList<String>();
         String[] mean_arr=meaning.split(",");
@@ -126,11 +140,21 @@ public class SlangWordList {
         }
     }
     
+    /**
+     * Delete a slang word
+     * @param key 
+     */
     public void deleteSlang(String key) {
         if(list.containsKey(key)==true) 
             list.remove(key);
     }
 
+    /**
+     * Edit a slang word
+     * @param key
+     * @param meaning
+     * @return 1 if edit success, -1 if not.
+     */
     public int editSlang(String key, String meaning) {
         try {
             ArrayList<String> means = new ArrayList<String>();
@@ -144,8 +168,25 @@ public class SlangWordList {
         }
     }
 
+    /**
+     * Check if a slang word is existed
+     * @param key
+     * @return true if existed
+     */
     public Boolean isExisted(String key) {
         return list.containsKey(key);
+    }
+    
+    public ArrayList<String> random(int n){
+        ArrayList<String> result = new ArrayList<String>();
+        while(result.size() < n){
+            Object randomName = list.keySet().toArray()[new Random().nextInt(list.keySet().toArray().length)];
+            String value = randomName.toString();
+            if(!result.contains(value)){
+                result.add(value);
+            }
+        }
+        return result;
     }
     
     public String toString(){
