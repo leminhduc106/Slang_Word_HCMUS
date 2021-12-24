@@ -355,10 +355,22 @@ public class JFrSlang extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "(!) Please enter a definition to search.");
         }
         else {
-            if(list.searchByDefinition(txtDefinition.getText()) == null) {
-                txtShowSlang.setText("NOT FOUND!");
-            } else {
-                txtShowSlang.setText("SLANG WORD: " + list.searchByDefinition(txtDefinition.getText()));
+            ArrayList<String> values = list.searchByDefinition(txtDefinition.getText());
+            if(values == null) {
+                txtShowSlang.setText("Not found!");
+                txtShowSlang.setEditable(false);
+            }
+            else {
+                String slang = "";
+                for (int i = 0; i< values.size(); i++){
+                    if(i != values.size() - 1){
+                        slang = slang + values.get(i) + "\n";
+                    }
+                    else if (i == values.size() - 1){
+                        slang = slang + values.get(i);
+                    }
+                }
+                txtShowSlang.setText(slang);
                 txtShowSlang.setEditable(false);
             }
         }

@@ -76,14 +76,15 @@ public class SlangWordList {
      * @param definition
      * @return slang word if found definition
      */
-    public String searchByDefinition(String definition){
+    public ArrayList<String> searchByDefinition(String definition){
+        ArrayList<String> result = new ArrayList<>();
         for(String key: list.keySet())
         {
             if(list.get(key).contains(definition)){
-                return key;
+                result.add(key);
             }
         }
-        return null;
+        return result;
     }
     
     /**
